@@ -16,19 +16,13 @@ const GetRemoteDataHandler = {
     
       .then((response) => {
         const data = JSON.parse(response);
-        outputSpeech = `Greetings There are currently  ${data.length} elevators deployed in the. `;
-        for (let i = 0; i < data.people.length; i++) {
-          if (i === 0) {
-            //first record
-            outputSpeech = outputSpeech + 'Their names are: ' + data.people[i].name + ', '
-          } else if (i === data.people.length - 1) {
-            //last record
-            outputSpeech = outputSpeech + 'and ' + data.people[i].name + '.'
-          } else {
-            //middle record(s)
-            outputSpeech = outputSpeech + data.people[i].name + ', '
-          }
-        }
+        outputSpeech =  `Greetings,
+        there are currently ${dataElevators.length} elevators deployed in the ${dataBuildings.length} buildings of your ${dataCustomers.length} customers.
+        Currently, ${dataElevatorsUnoperational.length} elevators are not in Running Status and are being serviced.
+        ${dataBatteries.length} batteries are deployed across ${dataBatteriesCities.length} cities.
+        On another note you currently have ${dataQuotes.length} quotes awaiting processing.
+        You also have ${dataLeads.length} leads in your contact requests.`;
+
       })
       .catch((err) => {
         //set an optional error message here
@@ -38,7 +32,6 @@ const GetRemoteDataHandler = {
     return handlerInput.responseBuilder
       .speak(outputSpeech)
       .getResponse();
-
   },
 };
 
