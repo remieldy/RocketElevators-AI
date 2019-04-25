@@ -1,0 +1,58 @@
+{
+  "interactionModel": {
+    "languageModel": {
+      "invocationName": "api",
+      "intents": [
+        {
+          "name": "AMAZON.CancelIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.HelpIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.StopIntent",
+          "samples": []
+        },
+        {
+          "name": "GetRemoteDataIntent",
+          "slots": [],
+          "samples": [
+            "what is the leads of",
+            "i want a status of elevator",
+            "tell me something about rocket elevators",
+            "how many batteries are deployed across ",
+            "tell me how many elevators are deploy",
+            "quotes ",
+            "cities",
+            "buildings ",
+            "customers",
+            "what is the Status "
+          ]
+        },
+        {
+          "name": "AMAZON.NavigateHomeIntent",
+          "samples": []
+        },
+        {
+          "name": "rocket",
+          "slots": [],
+          "samples": [
+            "what is the quotes",
+            "how many customers",
+            "how many buildings",
+            "how many batteries ",
+            "what is the status of elevator",
+            "how many leads",
+            "how many elevator ",
+            "what is rocket elevators",
+            "what is the number of elevator"
+          ]
+        }
+      ],
+      "types": []
+    }
+  },
+  "version": "13"
+}
