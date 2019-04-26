@@ -4,6 +4,10 @@
       "invocationName": "api",
       "intents": [
         {
+          "name": "WelcomeIntent",
+          "samples": []
+        },
+         {
           "name": "AMAZON.CancelIntent",
           "samples": []
         },
