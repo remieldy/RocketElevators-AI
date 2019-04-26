@@ -23,7 +23,7 @@
             "codeUri": "lambda/us-east-1_ask-custom-Rocket-default",
             "functionName": "ask-custom-Rocket-default",
             "handler": "index.handler",
-            "revisionId": "f7b676d7-8d20-4103-b87d-f626bb04aa26",
+            "revisionId": "344867e7-9300-475d-a0bf-9dea493ba7b2",
             "runtime": "nodejs8.10"
           }
         ]

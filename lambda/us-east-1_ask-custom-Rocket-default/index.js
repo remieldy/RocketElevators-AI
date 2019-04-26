@@ -3,32 +3,50 @@
 
 const Alexa = require('ask-sdk-core');
 
+//To display a welcome message when invoke name is called
+const WelcomeIntentHandler = {
+ canHandle(handlerInput) {
+   return handlerInput.requestEnvelope.request.type === 'LaunchRequest'||
+     (handlerInput.requestEnvelope.request.type === "IntentRequest" &&
+     handlerInput.requestEnvelope.request.intent.name === "WelcomeIntent")
+ },
+ async handle(handlerInput) {
+   let outputSpeech = 'Welcome to Rocket Elevators. How can I help you?';
+
+   return handlerInput.responseBuilder
+     .speak(outputSpeech)
+     .reprompt("How can I help?")
+     .getResponse();
+ },
+};
 const GetRemoteDataHandler = {
   canHandle(handlerInput) {
-    return handlerInput.requestEnvelope.request.type === 'LaunchRequest'
-      || (handlerInput.requestEnvelope.request.type === 'IntentRequest'
-      && handlerInput.requestEnvelope.request.intent.name === 'GetRemoteDataIntent');
-  },
+     return handlerInput.requestEnvelope.request.type === "IntentRequest" &&
+     handlerInput.requestEnvelope.request.intent.name === 'GetRemoteDataIntent';
+  }
+  
   async handle(handlerInput) {
     let outputSpeech = 'This is the default message.';
 
     await getRemoteData('https://rocketapi.azurewebsites.net/api/elevator')
+    await getRemoteData('https://rocketapi.azurewebsites.net/api/building')
+    await getRemoteData('https://rocketapi.azurewebsites.net/api/customers')
+    await getRemoteData('https://rocketapi.azurewebsites.net/api/ElevatorsUnoperational')
+    await getRemoteData('https://rocketapi.azurewebsites.net/api/Batteries')
+    await getRemoteData('https://rocketapi.azurewebsites.net/api/BatteriesCities')
+    await getRemoteData('https://rocketapi.azurewebsites.net/api/Quotes.')
+    await getRemoteData('https://rocketapi.azurewebsites.net/api/Leads')
+
     
       .then((response) => {
         const data = JSON.parse(response);
-        outputSpeech = `Greetings There are currently  ${data.length} elevators deployed in the. `;
-        for (let i = 0; i < data.people.length; i++) {
-          if (i === 0) {
-            //first record
-            outputSpeech = outputSpeech + 'Their names are: ' + data.people[i].name + ', '
-          } else if (i === data.people.length - 1) {
-            //last record
-            outputSpeech = outputSpeech + 'and ' + data.people[i].name + '.'
-          } else {
-            //middle record(s)
-            outputSpeech = outputSpeech + data.people[i].name + ', '
-          }
-        }
+        outputSpeech =  `Greetings,
+        there are currently ${dataElevators.length} elevators deployed in the ${dataBuildings.length} buildings of your ${dataCustomers.length} customers.
+        Currently, ${dataElevatorsUnoperational.length} elevators are not in Running Status and are being serviced.
+        ${dataBatteries.length} batteries are deployed across ${dataBatteriesCities.length} cities.
+        On another note you currently have ${dataQuotes.length} quotes awaiting processing.
+        You also have ${dataLeads.length} leads in your contact requests.`;
+
       })
       .catch((err) => {
         //set an optional error message here
@@ -38,7 +56,6 @@ const GetRemoteDataHandler = {
     return handlerInput.responseBuilder
       .speak(outputSpeech)
       .getResponse();
-
   },
 };
 
@@ -119,7 +136,8 @@ exports.handler = skillBuilder
     GetRemoteDataHandler,
     HelpIntentHandler,
     CancelAndStopIntentHandler,
-    SessionEndedRequestHandler
+    SessionEndedRequestHandler,
+    WelcomeIntentHandler
   )
   .addErrorHandlers(ErrorHandler)
   .lambda();
