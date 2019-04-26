@@ -3,60 +3,54 @@
 
 const Alexa = require('ask-sdk-core');
 
-//To display a welcome message when invoke name is called
-const WelcomeIntentHandler = {
- canHandle(handlerInput) {
-   return handlerInput.requestEnvelope.request.type === 'LaunchRequest'||
-     (handlerInput.requestEnvelope.request.type === "IntentRequest" &&
-     handlerInput.requestEnvelope.request.intent.name === "WelcomeIntent")
- },
- async handle(handlerInput) {
-   let outputSpeech = 'Welcome to Rocket Elevators. How can I help you?';
 
-   return handlerInput.responseBuilder
-     .speak(outputSpeech)
-     .reprompt("How can I help?")
-     .getResponse();
- },
-};
 const GetRemoteDataHandler = {
   canHandle(handlerInput) {
-     return handlerInput.requestEnvelope.request.type === "IntentRequest" &&
-     handlerInput.requestEnvelope.request.intent.name === 'GetRemoteDataIntent';
-  }
+     return handlerInput.requestEnvelope.request.type === 'LaunchRequest'
+     || (handlerInput.requestEnvelope.request.type === "IntentRequest" &&
+     handlerInput.requestEnvelope.request.intent.name === 'GetRemoteDataIntent');
+  },
   
   async handle(handlerInput) {  
-    let outputSpeech = 'This is the default message.';
+    let outputSpeech = 'Greetings,';
 
-    await getRemoteData('https://rocketapi.azurewebsites.net/api/elevator')
-    await getRemoteData('https://rocketapi.azurewebsites.net/api/building')
-    await getRemoteData('https://rocketapi.azurewebsites.net/api/customers')
-    await getRemoteData('https://rocketapi.azurewebsites.net/api/ElevatorsUnoperational')
-    await getRemoteData('https://rocketapi.azurewebsites.net/api/Batteries')
-    await getRemoteData('https://rocketapi.azurewebsites.net/api/BatteriesCities')
-    await getRemoteData('https://rocketapi.azurewebsites.net/api/Quotes.')
-    await getRemoteData('https://rocketapi.azurewebsites.net/api/Leads')
+    const getElevator = await getRemoteData('https://rocketapi.azurewebsites.net/api/alexa/elevators')
+    const Elevators = JSON.parse(getElevator)
 
-    
-      .then((response) => {
-        const data = JSON.parse(response);
-        outputSpeech =  `Greetings,
-        there are currently ${dataElevators.length} elevators deployed in the ${dataBuildings.length} buildings of your ${dataCustomers.length} customers.
-        Currently, ${dataElevatorsUnoperational.length} elevators are not in Running Status and are being serviced.
-        ${dataBatteries.length} batteries are deployed across ${dataBatteriesCities.length} cities.
-        On another note you currently have ${dataQuotes.length} quotes awaiting processing.
-        You also have ${dataLeads.length} leads in your contact requests.`;
+    const getBuildings = await getRemoteData('https://rocketapi.azurewebsites.net/api/alexa/buildings')
+    const Buildings = JSON.parse(getBuildings)
 
-      })
-      .catch((err) => {
-        //set an optional error message here
-        //outputSpeech = err.message;
-      });
+    const getCustomers = await getRemoteData('https://rocketapi.azurewebsites.net/api/alexa/customers')
+    const Customers = JSON.parse(getCustomers)
+
+    const getStatus = await getRemoteData('https://rocketapi.azurewebsites.net/api/alexa/elevatorsstatus')
+    const Status = JSON.parse(getStatus)
+
+    const getBatteries = await getRemoteData('https://rocketapi.azurewebsites.net/api/alexa/batteries')
+    const Batteries = JSON.parse(getBatteries)
+
+    const getQuotes = await getRemoteData('https://rocketapi.azurewebsites.net/api/alexa/quotes')
+    const Quotes = JSON.parse(getQuotes)
+
+    const getLeads = await getRemoteData('https://rocketapi.azurewebsites.net/api/alexa/leads')
+    const Leads = JSON.parse(getLeads)
+
+    const getCities = await getRemoteData('https://rocketapi.azurewebsites.net/api/alexa/address/cities')
+    const Cities = JSON.parse(getCities)
+
+        outputSpeech += `there are currently ${Elevators.length} elevators deployed in the ${Buildings.length} buildings of your ${Customers.length} customers.
+        Currently, ${Status.length} elevators are not in Running Status and are being serviced.
+        ${Batteries.length} batteries are deployed across ${Cities.length} cities.
+        On another note you currently have ${Quotes.length} quotes awaiting processing.
+        You also have ${Leads.length} leads in your contact requests.`;
+
+
 
     return handlerInput.responseBuilder
       .speak(outputSpeech)
       .getResponse();
   },
+
 };
 
 const HelpIntentHandler = {
@@ -126,6 +120,7 @@ const getRemoteData = function (url) {
       response.on('end', () => resolve(body.join('')));
     });
     request.on('error', (err) => reject(err))
+    console.log(err)
   })
 };
 
@@ -136,8 +131,7 @@ exports.handler = skillBuilder
     GetRemoteDataHandler,
     HelpIntentHandler,
     CancelAndStopIntentHandler,
-    SessionEndedRequestHandler,
-    WelcomeIntentHandler
+    SessionEndedRequestHandler
   )
   .addErrorHandlers(ErrorHandler)
   .lambda();

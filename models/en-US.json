@@ -1,12 +1,9 @@
 {
   "interactionModel": {
     "languageModel": {
-      "invocationName": "api",
+      "invocationName": "what is going on at rocket elevators",
       "intents": [
-        {
-          "name": "WelcomeIntent",
-          "samples": []
-        },
+
          {
           "name": "AMAZON.CancelIntent",
           "samples": []
@@ -23,36 +20,16 @@
           "name": "GetRemoteDataIntent",
           "slots": [],
           "samples": [
-            "what is the leads of",
-            "i want a status of elevator",
-            "tell me something about rocket elevators",
-            "how many batteries are deployed across ",
-            "tell me how many elevators are deploy",
-            "quotes ",
-            "cities",
-            "buildings ",
-            "customers",
-            "what is the Status "
+      "hey alexa what is going on at rocket elevators",
+      "hey alexa what is going on",
+      "hey alexa what is happenning with rocket elevators",
+      "hey alexa give me some knew about rocket elevators",
+      "hey alexa"
           ]
         },
         {
           "name": "AMAZON.NavigateHomeIntent",
           "samples": []
-        },
-        {
-          "name": "rocket",
-          "slots": [],
-          "samples": [
-            "what is the quotes",
-            "how many customers",
-            "how many buildings",
-            "how many batteries ",
-            "what is the status of elevator",
-            "how many leads",
-            "how many elevator ",
-            "what is rocket elevators",
-            "what is the number of elevator"
-          ]
         }
       ],
       "types": []

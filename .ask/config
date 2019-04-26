@@ -10,7 +10,7 @@
         },
         "interactionModel": {
           "en-US": {
-            "eTag": "5cbfed30334f298c3027ce4720315d02"
+            "eTag": "b830d335292ae063168e5a8d36243413"
           }
         },
         "lambda": [
@@ -23,7 +23,7 @@
             "codeUri": "lambda/us-east-1_ask-custom-Rocket-default",
             "functionName": "ask-custom-Rocket-default",
             "handler": "index.handler",
-            "revisionId": "344867e7-9300-475d-a0bf-9dea493ba7b2",
+            "revisionId": "30b7faf1-dbbb-4c8a-be0e-11b51bc2ccda",
             "runtime": "nodejs8.10"
           }
         ]
