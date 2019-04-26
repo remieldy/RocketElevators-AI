@@ -25,8 +25,7 @@ const GetRemoteDataHandler = {
      handlerInput.requestEnvelope.request.intent.name === 'GetRemoteDataIntent';
   }
   
-  async handle(handlerInput) {
-    
+  async handle(handlerInput) {  
     let outputSpeech = 'This is the default message.';
 
     await getRemoteData('https://rocketapi.azurewebsites.net/api/elevator')
