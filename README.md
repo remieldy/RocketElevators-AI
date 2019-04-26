@@ -5,7 +5,8 @@
  
  
  
- vu que ont a du abbandonner google pour alexa ont a 2 jours de retard 
+ vu qu' ont a du abbandonner google pour alexa ont a 2 jours de retard 
+ voici les calls API pour resortir les informations demande
  
  https://rocketapi.azurewebsites.net/api/alexa/elevators  for elevator
  https://rocketapi.azurewebsites.net/api/alexa/buildings  for building
