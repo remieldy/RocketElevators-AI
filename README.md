@@ -1,11 +1,12 @@
 ﻿# RocketElevators-AI   
+  vu qu' ont a du abbandonner google pour alexa ont a 2 jours de retard 
+  
  
  for starting Alexa just ask or type "what is going on at rocket elevators"
  
+ video link: https://www.youtube.com/watch?v=IsGG4x0Q9gQ&feature=youtu.be
  
  
- 
- vu qu' ont a du abbandonner google pour alexa ont a 2 jours de retard 
  voici les calls API pour resortir les informations demande
  
  https://rocketapi.azurewebsites.net/api/alexa/elevators  for elevator
